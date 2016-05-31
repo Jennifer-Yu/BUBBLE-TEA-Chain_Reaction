@@ -24,6 +24,9 @@ void draw() {
       if ( (bomb.xpos - bomb.size/2 <= balls[i].xpos) && (bomb.xpos + bomb.size/2 >= balls[i].xpos)
         && (bomb.ypos - bomb.size/2 <= balls[i].ypos) && (bomb.ypos + bomb.size/2 >= balls[i].ypos) ) {
           balls[i].state = "expand";
+          Ball temp = bomb;
+          bomb = balls[i];
+          balls[i] = temp;
         }  
     }
   }
