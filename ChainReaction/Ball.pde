@@ -16,6 +16,18 @@ class Ball {
     state = "normal";
   }
   
+  Ball( int x, int y ) { //only for bomb
+    c1 = 0;
+    c2 = 0;
+    c3 = 0;
+    xpos = x;
+    ypos = y;
+    xvel = 0;
+    yvel = 0;
+    size = 1;
+    state = "expand";
+  }
+  
   void display() { //set up
     fill(c1,c2,c3);
     ellipse( xpos, ypos, size, size );
@@ -48,6 +60,4 @@ class Ball {
     }
   }
     
-     
-    
-}
+} //ends Ball class
