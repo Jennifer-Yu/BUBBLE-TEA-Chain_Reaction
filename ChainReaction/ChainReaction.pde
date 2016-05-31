@@ -1,5 +1,7 @@
 Ball[] balls;
 boolean reactionStarted;
+Ball bomb = new Ball();  
+
 
 void setup() {
   size( 600, 600 );
@@ -14,10 +16,25 @@ void draw() {
   background(255);
   for( int i = 0; i < balls.length; i++ ) {
     balls[i].display(); //reset graphics or animate
-    if( mousePressed && balls[i].xpos == mouseX && balls[i].ypos == mouseY ) {
-      balls[i].state = "expand";
-    }
     balls[i].move();
+    if ( mousePressed ) {
+      bomb();
+    }
+    if (bomb.size > 100) {
+      bomb.state = "shrink";
+      bomb.size--;
+    }
+    bomb.move();
+    if ( reactionStarted == true ) {
+      bomb.display();
+    }
   }
-  
+}
+
+void bomb() {
+  reactionStarted = true;
+  bomb.xpos = mouseX;
+  bomb.ypos = mouseY;
+  bomb.display();
+  bomb.state = "expand";
 }
