@@ -1,7 +1,6 @@
 Ball[] balls;
 boolean reactionStarted;
-Ball bomb = new Ball();  
-
+Ball bomb;
 
 void setup() {
   size( 600, 600 );
@@ -18,23 +17,21 @@ void draw() {
     balls[i].display(); //reset graphics or animate
     balls[i].move();
     if ( mousePressed ) {
-      bomb();
+      bomb = new Ball( mouseX, mouseY );
+      reactionStarted = true; // this enables separation of movement between bomb and regular balls; see below!
     }
-    if (bomb.size > 100) {
-      bomb.state = "shrink";
-      bomb.size--;
-    }
-    bomb.move();
-    if ( reactionStarted == true ) {
-      bomb.display();
+    if ( reactionStarted == true && balls[i].state != "dead" && balls[i].state != "shrink" ) { // this is for chain reaction
+      if ( (bomb.xpos - bomb.size/2 <= balls[i].xpos) && (bomb.xpos + bomb.size/2 >= balls[i].xpos)
+        && (bomb.ypos - bomb.size/2 <= balls[i].ypos) && (bomb.ypos + bomb.size/2 >= balls[i].ypos) ) {
+          balls[i].state = "expand";
+          Ball temp = bomb;
+          bomb = balls[i];
+          balls[i] = temp;
+        }  
     }
   }
-}
-
-void bomb() {
-  reactionStarted = true;
-  bomb.xpos = mouseX;
-  bomb.ypos = mouseY;
-  bomb.display();
-  bomb.state = "expand";
+  if ( reactionStarted == true ) { // this is for bomb animation
+    bomb.display();
+    bomb.move();
+  }
 }
