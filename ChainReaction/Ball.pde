@@ -56,8 +56,6 @@ class Ball {
         state = "dead";
       }
     }
-    else if( state.equals( "dead" ) ) {
-    }
   }
     
 } //ends Ball class

@@ -20,7 +20,7 @@ void draw() {
       bomb = new Ball( mouseX, mouseY );
       reactionStarted = true; // this enables separation of movement between bomb and regular balls; see below!
     }
-    if ( reactionStarted == true ) { // this is for chain reaction
+    if ( reactionStarted == true && balls[i].state != "dead" && balls[i].state != "shrink" ) { // this is for chain reaction
       if ( (bomb.xpos - bomb.size/2 <= balls[i].xpos) && (bomb.xpos + bomb.size/2 >= balls[i].xpos)
         && (bomb.ypos - bomb.size/2 <= balls[i].ypos) && (bomb.ypos + bomb.size/2 >= balls[i].ypos) ) {
           balls[i].state = "expand";
